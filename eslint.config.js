@@ -39,15 +39,6 @@ export default [
   },
   {
     files: ['**/*.vue', '**/*.ts'],
-    settings: {
-      'import/resolver': {
-        typescript: true,
-        node: true,
-      },
-      'import/parsers': {
-        '@typescript-eslint/parser': ['.ts'],
-      },
-    },
     languageOptions: {
       parser: vueParser,
       parserOptions: {
@@ -62,6 +53,7 @@ export default [
     },
     rules: {
       ...tsPlugin.configs['stylistic-type-checked'].rules,
+      'object-curly-spacing': ['error', 'always'],
       'vue/multi-word-component-names': 'off',
       'vue/first-attribute-linebreak': 'off',
       'vue/max-attributes-per-line': 'off',
@@ -124,16 +116,12 @@ export default [
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
       'no-return-await': 'off',
       '@typescript-eslint/return-await': ['error', 'always'],
-      '@typescript-eslint/consistent-type-assertions': ['error', {
-        assertionStyle: 'as',
-        objectLiteralTypeAssertions: 'never',
-      }],
       'sort-imports': ['error', {
         'ignoreCase': true,
         'ignoreDeclarationSort': true,
-        'ignoreMemberSort': false,
+        'ignoreMemberSort': true,
         'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
-        'allowSeparatedGroups': false
+        'allowSeparatedGroups': false,
       }],
       'import/namespace': 0,
       'import/default': 0,
@@ -148,6 +136,16 @@ export default [
         'error',
         {
           'newlines-between': 'never',
+          'alphabetize': {
+            'order': 'asc',
+            'caseInsensitive': true,
+          },
+          'pathGroups': [
+            {
+              'pattern': '@/**',
+              'group': 'internal',
+            },
+          ],
           'groups': [
             'builtin',
             'external',
@@ -156,10 +154,10 @@ export default [
             'sibling',
             'index',
             'object',
-            'type'
-          ]
-        }
-      ]
+            'type',
+          ],
+        },
+      ],        
     },
   },
 ]
